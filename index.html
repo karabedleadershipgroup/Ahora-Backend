@@ -572,17 +572,8 @@ function restart() {
 
 async function init() {
   setProgress(0);
-  showTyping();
-  try {
-    const raw = await callAI(null);
-    hideTyping();
-    processRaw(raw);
-  } catch(e) {
-    hideTyping();
-    addMsg("ai","Something went wrong — please refresh and try again.");
-  }
+  addMsg("ai", "Welcome. This space is here to help you work through a conflict so you can address it with clarity and confidence — ideally within 48 hours. Is there a conflict or difficult situation you are ready to work through today?", 0);
 }
-
 const inp = document.getElementById("input");
 inp.addEventListener("input", function() {
   this.style.height = "auto";
