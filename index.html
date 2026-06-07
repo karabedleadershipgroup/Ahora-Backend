@@ -41,6 +41,11 @@
     font-size:10.5px; font-weight:600; letter-spacing:.06em; padding:5px 11px; cursor:pointer; }
   .lang-toggle button.on { background:var(--gold); color:var(--navy); }
 
+  .save-row { display:flex; gap:8px; margin-top:12px; }
+  .save-btn { flex:1; background:none; border:.5px solid var(--gold-border); color:var(--gold); border-radius:99px;
+    font-family:'Montserrat',sans-serif; font-size:11.5px; font-weight:600; letter-spacing:.04em;
+    padding:9px 12px; cursor:pointer; }
+  .save-btn:hover { background:var(--gold-pale); }
   .screen { display:none; flex:1; flex-direction:column; overflow:hidden; }
   .screen.on { display:flex; }
   .scrollable { overflow-y:auto; }
@@ -514,13 +519,14 @@ en: {
   aPh:'Type your question\u2026', aBtn:'Ask', aWho:'Dr. Isa suggests', aAgain:'Ask another question',
   vTitle:'Value Spotter', vQ:'Which sentence best names the value of this person or relationship?',
   vCounter:'Situation', vNext:'Next situation', vDoneBig:'You spotted the value, ten times.',
-  vDone:'Starting with honest, specific value is the heart of AHORA \u2014 it is what makes the rest of the conversation safe to hear. Carry this into your next real conversation.',
+  vDone:'Starting with honest, specific value is the heart of AHORA \u2014 it is what makes the rest of the conversation safe to hear. Then say the bridge: \u201cFor that reason, I want to share something that happened that made me feel\u2026\u201d \u2014 that bridge is the foundation of the repair. Carry both into your next real conversation.',
   vRestart:'Practice again',
   xTitle:'Scenario Practice', xPick:'Choose a scenario to practice', xRole:{impacted:'You are the Impacted', impactor:'You are the Impactor'},
   xStepOf:'Question', xCheck:'Get feedback', xShow:'Show me an example', xExLbl:'One way to say it',
   xNext:'Next question', xBack:'Choose another scenario', xDoneBig:'Your practice script',
   xDoneTip:'Say it from a calm, grounded place. After your opening, stop and listen.',
-  rTitle:'Curriculum Refresher', rPrev:'Back', rNext:'Next', rDone:'Back to start', slide:'Card'
+  rTitle:'Curriculum Refresher', rPrev:'Back', rNext:'Next', rDone:'Back to start', slide:'Card',
+  svCopy:'Copy my script', svCopied:'Copied!', svDl:'Download my script', svHdr:'AHORA \u2014 Resilient Conflict Resolution', svNote:'Practice tool \u2014 not a substitute for HR, supervision, or therapeutic support.'
 },
 es: {
   hdrSub:'Karabed Leadership Group',
@@ -547,13 +553,14 @@ es: {
   aPh:'Escribe tu pregunta\u2026', aBtn:'Preguntar', aWho:'La Dra. Isa sugiere', aAgain:'Hacer otra pregunta',
   vTitle:'Detector de Valor', vQ:'\u00bfCu\u00e1l oraci\u00f3n nombra mejor el valor de esta persona o relaci\u00f3n?',
   vCounter:'Situaci\u00f3n', vNext:'Siguiente situaci\u00f3n', vDoneBig:'Detectaste el valor, diez veces.',
-  vDone:'Comenzar con un valor honesto y espec\u00edfico es el coraz\u00f3n de AHORA \u2014 es lo que hace que el resto de la conversaci\u00f3n sea segura de escuchar. Lleva esto a tu pr\u00f3xima conversaci\u00f3n real.',
+  vDone:'Comenzar con un valor honesto y espec\u00edfico es el coraz\u00f3n de AHORA \u2014 es lo que hace que el resto de la conversaci\u00f3n sea segura de escuchar. Luego di el puente: \u201cPor esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir\u2026\u201d \u2014 ese puente es el fundamento de la reparaci\u00f3n. Lleva ambos a tu pr\u00f3xima conversaci\u00f3n real.',
   vRestart:'Practicar de nuevo',
   xTitle:'Pr\u00e1ctica de Escenarios', xPick:'Elige un escenario para practicar', xRole:{impacted:'Eres la persona Impactada', impactor:'Eres la persona Impactora'},
   xStepOf:'Pregunta', xCheck:'Recibir retroalimentaci\u00f3n', xShow:'Mu\u00e9strame un ejemplo', xExLbl:'Una forma de decirlo',
   xNext:'Siguiente pregunta', xBack:'Elegir otro escenario', xDoneBig:'Tu gui\u00f3n de pr\u00e1ctica',
   xDoneTip:'Dilo desde un lugar tranquilo y firme. Despu\u00e9s de tu apertura, det\u00e9nte y escucha.',
-  rTitle:'Repaso del Curr\u00edculo', rPrev:'Atr\u00e1s', rNext:'Siguiente', rDone:'Volver al inicio', slide:'Tarjeta'
+  rTitle:'Repaso del Curr\u00edculo', rPrev:'Atr\u00e1s', rNext:'Siguiente', rDone:'Volver al inicio', slide:'Tarjeta',
+  svCopy:'Copiar mi gui\u00f3n', svCopied:'\u00a1Copiado!', svDl:'Descargar mi gui\u00f3n', svHdr:'AHORA \u2014 Resoluci\u00f3n Resiliente de Conflictos', svNote:'Herramienta de pr\u00e1ctica \u2014 no sustituye a RR.HH., supervisi\u00f3n ni apoyo terap\u00e9utico.'
 }};
 
 /* =============== TERMS OF SERVICE =============== */
@@ -730,14 +737,14 @@ const VS = [
 const PROMPTS = {
 impacted: {
   en: [
-   {l:'A \u2014 Acknowledge: Value', q:'What can you honestly say about the value of this person or your working relationship? One sentence you would say out loud.'},
+   {l:'A \u2014 Acknowledge: Value', q:'What can you honestly say about the value of this person or your working relationship? One sentence you would say out loud \u2014 then bridge it: \u201cFor that reason, I want to share something that happened that made me feel\u2026\u201d (upset, confused, not valued \u2014 your honest word).'},
    {l:'A \u2014 Acknowledge: What happened', q:'What exactly did they do? Just the behavior, no judgments \u2014 one sentence.'},
    {l:'A \u2014 Acknowledge: Impact', q:'What did it cost you \u2014 your work, your confidence, your trust? One honest sentence.'},
    {l:'H \u2014 Pause & Notice', q:'You say your opening, then stop and wait. What will you do if they own it? And if they get defensive or go quiet?'},
    {l:'O \u2014 Open Possibilities', q:'Say what repair could make possible, then hand them the choice \u2014 for example: \u201cI think it would be great for our relationship if we resolve this. What do you think?\u201d What is your version?'},
    {l:'R + A \u2014 Request Repair, then Act & Align', q:'What do you need them to do differently going forward \u2014 and what is your closing agreement line?'}],
   es: [
-   {l:'A \u2014 Reconocer: Valor', q:'\u00bfQu\u00e9 puedes decir honestamente sobre el valor de esta persona o de su relaci\u00f3n de trabajo? Una oraci\u00f3n que dir\u00edas en voz alta.'},
+   {l:'A \u2014 Reconocer: Valor', q:'\u00bfQu\u00e9 puedes decir honestamente sobre el valor de esta persona o de su relaci\u00f3n de trabajo? Una oraci\u00f3n que dir\u00edas en voz alta \u2014 y luego el puente: \u201cPor esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir\u2026\u201d (molesta(o), confundida(o), no valorada(o) \u2014 tu palabra honesta).'},
    {l:'A \u2014 Reconocer: Qu\u00e9 pas\u00f3', q:'\u00bfQu\u00e9 hizo exactamente? Solo la conducta, sin juicios \u2014 una oraci\u00f3n.'},
    {l:'A \u2014 Reconocer: Impacto', q:'\u00bfQu\u00e9 te cost\u00f3 \u2014 tu trabajo, tu confianza, tu seguridad? Una oraci\u00f3n honesta.'},
    {l:'H \u2014 Pausar y Observar', q:'Dices tu apertura y luego te detienes a esperar. \u00bfQu\u00e9 har\u00e1s si lo reconoce? \u00bfY si se pone a la defensiva o se queda en silencio?'},
@@ -746,14 +753,14 @@ impacted: {
 },
 impactor: {
   en: [
-   {l:'A \u2014 Acknowledge: Value', q:'What can you honestly say about the value of this person or your working relationship? One sentence.'},
+   {l:'A \u2014 Acknowledge: Value', q:'What can you honestly say about the value of this person or your working relationship? One sentence \u2014 then bridge it: \u201cFor that reason, I want to share something that happened that has been weighing on me.\u201d'},
    {l:'A \u2014 Acknowledge: What you did', q:'Name exactly what you did \u2014 no excuses, no softening. One sentence.'},
    {l:'A \u2014 Acknowledge: Impact', q:'How do you think it landed on them? Name the impact you believe you caused.'},
    {l:'H \u2014 Hold Yourself Accountable', q:'Own it fully \u2014 what is your accountability sentence, with no \u201cbut\u201d attached?'},
    {l:'O \u2014 Open Possibilities', q:'Offer what repair could make possible and leave the choice with them \u2014 for example: \u201cI\u2019d love to repair this if you\u2019re open to it. What do you think?\u201d What is your version?'},
    {l:'R + A \u2014 Offer Repair, then Act & Align', q:'What will you commit to doing differently \u2014 and what is your closing agreement line?'}],
   es: [
-   {l:'A \u2014 Reconocer: Valor', q:'\u00bfQu\u00e9 puedes decir honestamente sobre el valor de esta persona o de su relaci\u00f3n de trabajo? Una oraci\u00f3n.'},
+   {l:'A \u2014 Reconocer: Valor', q:'\u00bfQu\u00e9 puedes decir honestamente sobre el valor de esta persona o de su relaci\u00f3n de trabajo? Una oraci\u00f3n \u2014 y luego el puente: \u201cPor esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me ha estado pesando.\u201d'},
    {l:'A \u2014 Reconocer: Qu\u00e9 hiciste', q:'Nombra exactamente lo que hiciste \u2014 sin excusas, sin suavizarlo. Una oraci\u00f3n.'},
    {l:'A \u2014 Reconocer: Impacto', q:'\u00bfC\u00f3mo crees que le afect\u00f3? Nombra el impacto que crees haber causado.'},
    {l:'H \u2014 Responsabil\u00edzate', q:'As\u00famelo por completo \u2014 \u00bfcu\u00e1l es tu oraci\u00f3n de responsabilidad, sin ning\u00fan \u201cpero\u201d?'},
@@ -769,14 +776,14 @@ const PRACTICE = [
   sit:{en:'You are a case manager. You and the housing specialist agreed to take a client to the Housing Authority together. They arrived an hour late \u2014 no call, no text, and when they got there, no apology. You sat alone with a nervous client.',
        es:'Eres administradora de casos. T\u00fa y el especialista de vivienda acordaron llevar juntos a un cliente a la Autoridad de Vivienda. \u00c9l lleg\u00f3 una hora tarde \u2014 sin llamar, sin mensaje, y al llegar, sin disculparse. Te quedaste sola con un cliente nervioso.'},
   ex:{en:[
-   '\u201cI really value how we partner for our clients \u2014 when we\u2019re in sync, our clients feel it.\u201d',
+   '\u201cI really value how we partner for our clients \u2014 when we\u2019re in sync, our clients feel it. For that reason, I want to share something that happened that made me feel dismissed.\u201d',
    '\u201cOn Tuesday you arrived an hour after our Housing Authority appointment without calling or texting me.\u201d',
    '\u201cI was alone with a nervous client, I felt dismissed, and it shook my confidence that I can count on you.\u201d',
    '\u201cI\u2019ll say my opening, then stop and listen. If they own it, I\u2019ll thank them and move to our agreement. If they get defensive, I\u2019ll stay calm and ask my open question instead of arguing.\u201d',
    '\u201cI think it would be really good for us and for our clients if we resolve this \u2014 what do you think?\u201d',
    '\u201cGoing forward, I need a call or text the moment you know you\u2019re running late. So we\u2019re agreeing: any delay, we message each other right away \u2014 does that work?\u201d'],
   es:[
-   '\u201cValoro mucho c\u00f3mo trabajamos en equipo por nuestros clientes \u2014 cuando estamos coordinados, los clientes lo sienten.\u201d',
+   '\u201cValoro mucho c\u00f3mo trabajamos en equipo por nuestros clientes \u2014 cuando estamos coordinados, los clientes lo sienten. Por esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir ignorada.\u201d',
    '\u201cEl martes llegaste una hora despu\u00e9s de nuestra cita en la Autoridad de Vivienda sin llamarme ni escribirme.\u201d',
    '\u201cMe qued\u00e9 sola con un cliente nervioso, me sent\u00ed ignorada, y eso afect\u00f3 mi confianza en que puedo contar contigo.\u201d',
    '\u201cDir\u00e9 mi apertura y luego me detendr\u00e9 a escuchar. Si lo reconoce, le agradecer\u00e9 y pasaremos al acuerdo. Si se pone a la defensiva, me mantendr\u00e9 tranquila y har\u00e9 mi pregunta abierta en vez de discutir.\u201d',
@@ -789,14 +796,14 @@ const PRACTICE = [
   sit:{en:'You open the morning shift and learn from a client \u2014 not from the log \u2014 that there was a serious client incident overnight. The overnight coordinator left no handoff notes, and you spent the morning catching up in front of clients.',
        es:'Abres el turno de la ma\u00f1ana y te enteras por un cliente \u2014 no por la bit\u00e1cora \u2014 de que hubo un incidente serio con un cliente durante la noche. El coordinador nocturno no dej\u00f3 notas de relevo, y pasaste la ma\u00f1ana poni\u00e9ndote al d\u00eda frente a los clientes.',},
   ex:{en:[
-   '\u201cI trust how you handle hard nights, and that trust between our shifts matters a lot to me.\u201d',
+   '\u201cI trust how you handle hard nights, and that trust between our shifts matters a lot to me. For that reason, I want to share something that happened that made me feel unprepared.\u201d',
    '\u201cYesterday there was a client incident overnight, and there were no handoff notes in the log when I came in.\u201d',
    '\u201cI found out from a client, I felt unprepared in front of our clients, and it shook how steady the morning felt.\u201d',
    '\u201cI\u2019ll say it and then wait. If they own it, we go straight to the agreement. If they explain it away, I\u2019ll breathe and ask my open question.\u201d',
    '\u201cI believe our shifts could run so much smoother if we repair this \u2014 are you open to that?\u201d',
    '\u201cGoing forward, I need incident notes in the log before shift change, even just three lines. So we\u2019re agreeing notes go in before you leave \u2014 does that work for you?\u201d'],
   es:[
-   '\u201cConf\u00edo en c\u00f3mo manejas las noches dif\u00edciles, y esa confianza entre nuestros turnos me importa mucho.\u201d',
+   '\u201cConf\u00edo en c\u00f3mo manejas las noches dif\u00edciles, y esa confianza entre nuestros turnos me importa mucho. Por esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir desprevenida.\u201d',
    '\u201cAyer hubo un incidente con un cliente en la noche, y no hab\u00eda notas de relevo en la bit\u00e1cora cuando llegu\u00e9.\u201d',
    '\u201cMe enter\u00e9 por un cliente, me sent\u00ed sin preparaci\u00f3n frente a nuestros clientes, y eso afect\u00f3 la estabilidad de la ma\u00f1ana.\u201d',
    '\u201cLo dir\u00e9 y luego esperar\u00e9. Si lo reconoce, vamos directo al acuerdo. Si lo justifica, respiro y hago mi pregunta abierta.\u201d',
@@ -809,14 +816,14 @@ const PRACTICE = [
   sit:{en:'You spent two weeks building a community resource guide. In today\u2019s staff meeting, a teammate walked the team through it and accepted the praise without mentioning you once.',
        es:'Pasaste dos semanas creando una gu\u00eda de recursos comunitarios. En la reuni\u00f3n de hoy, una compa\u00f1era la present\u00f3 al equipo y acept\u00f3 los elogios sin mencionarte ni una vez.'},
   ex:{en:[
-   '\u201cBuilding things with you is honestly one of my favorite parts of this team.\u201d',
+   '\u201cBuilding things with you is honestly one of my favorite parts of this team. For that reason, I want to share something that happened that made me feel invisible.\u201d',
    '\u201cIn today\u2019s meeting, the resource guide I built was presented without my name attached to it.\u201d',
    '\u201cI felt invisible, and it made me hesitant to share my work openly.\u201d',
    '\u201cI\u2019ll say my opening and pause. If she owns it, we move to the agreement. If not, I ask my open question and stay steady.\u201d',
    '\u201cI think our collaboration could be even stronger if we work through this \u2014 what do you think?\u201d',
    '\u201cGoing forward, I need us to credit each other\u2019s work by name. So we\u2019re agreeing to name who built what \u2014 sound right?\u201d'],
   es:[
-   '\u201cCrear cosas contigo es honestamente una de mis partes favoritas de este equipo.\u201d',
+   '\u201cCrear cosas contigo es honestamente una de mis partes favoritas de este equipo. Por esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir invisible.\u201d',
    '\u201cEn la reuni\u00f3n de hoy, la gu\u00eda de recursos que yo cre\u00e9 se present\u00f3 sin mi nombre.\u201d',
    '\u201cMe sent\u00ed invisible, y me hizo dudar de compartir mi trabajo abiertamente.\u201d',
    '\u201cDir\u00e9 mi apertura y har\u00e9 una pausa. Si lo reconoce, pasamos al acuerdo. Si no, hago mi pregunta abierta y me mantengo firme.\u201d',
@@ -829,14 +836,14 @@ const PRACTICE = [
   sit:{en:'In case conferencing, a colleague has interrupted you several meetings in a row. Yesterday you could not finish your client update, and a detail about a client\u2019s housing deadline almost got missed.',
        es:'En las conferencias de casos, un colega te ha interrumpido varias reuniones seguidas. Ayer no pudiste terminar tu actualizaci\u00f3n, y un detalle sobre la fecha l\u00edmite de vivienda de un cliente casi se pierde.'},
   ex:{en:[
-   '\u201cI respect how much heart you bring to these meetings \u2014 your energy for the clients is real.\u201d',
+   '\u201cI respect how much heart you bring to these meetings \u2014 your energy for the clients is real. For that reason, I want to share something that happened that made me feel unheard.\u201d',
    '\u201cIn yesterday\u2019s case conference, I was interrupted three times during my client update.\u201d',
    '\u201cI couldn\u2019t finish, a housing deadline almost got missed, and I left feeling like my contribution didn\u2019t matter.\u201d',
    '\u201cI\u2019ll say it and stop. If he owns it, we agree and move on. If he gets defensive, I won\u2019t match it \u2014 I\u2019ll ask my question.\u201d',
    '\u201cI believe our case conferences could feel better for everyone if we sort this out \u2014 would you be open to that?\u201d',
    '\u201cGoing forward, I need to finish my update before questions come in. So we\u2019re agreeing to hold reactions until each update is done \u2014 does that work?\u201d'],
   es:[
-   '\u201cRespeto cu\u00e1nto coraz\u00f3n traes a estas reuniones \u2014 tu energ\u00eda por los clientes es real.\u201d',
+   '\u201cRespeto cu\u00e1nto coraz\u00f3n traes a estas reuniones \u2014 tu energ\u00eda por los clientes es real. Por esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir no escuchada.\u201d',
    '\u201cEn la conferencia de ayer, me interrumpiste tres veces durante mi actualizaci\u00f3n.\u201d',
    '\u201cNo pude terminar, una fecha l\u00edmite de vivienda casi se pierde, y sal\u00ed sintiendo que mi aporte no importaba.\u201d',
    '\u201cLo dir\u00e9 y me detendr\u00e9. Si lo reconoce, acordamos y seguimos. Si se defiende, no entrar\u00e9 en eso \u2014 har\u00e9 mi pregunta.\u201d',
@@ -849,14 +856,14 @@ const PRACTICE = [
   sit:{en:'Intake was slammed. A coworker asked you for help with a form, and you snapped: \u201cFigure it out \u2014 I can\u2019t do everything.\u201d You saw their face change, and they have been quiet around you since. This time, you caused the impact.',
        es:'La admisi\u00f3n estaba a tope. Una colega te pidi\u00f3 ayuda con un formulario y le contestaste: \u201cResu\u00e9lvelo t\u00fa \u2014 no puedo hacerlo todo.\u201d Viste c\u00f3mo cambi\u00f3 su cara, y desde entonces est\u00e1 callada contigo. Esta vez, t\u00fa causaste el impacto.'},
   ex:{en:[
-   '\u201cI care about you and about how this team feels when we\u2019re slammed \u2014 that\u2019s why I\u2019m coming to you.\u201d',
+   '\u201cI care about you and about how this team feels when we\u2019re slammed \u2014 that\u2019s why I\u2019m coming to you. For that reason, I want to share something that happened that has been weighing on me.\u201d',
    '\u201cYesterday during intake, when you asked for help, I snapped at you and told you to figure it out.\u201d',
    '\u201cI think it landed harshly \u2014 you\u2019ve been quiet around me since, and I imagine it made asking for help feel unsafe.\u201d',
    '\u201cThat was on me. There\u2019s no version of busy that makes it okay, and I\u2019m not attaching any excuse to it.\u201d',
    '\u201cI\u2019d love the chance to repair this so asking for help feels safe again \u2014 would you be open to that?\u201d',
    '\u201cGoing forward, if I\u2019m at capacity I\u2019ll say \u2018give me ten minutes\u2019 instead of snapping. So we\u2019re agreeing I\u2019ll ask for time, not push you away \u2014 does that feel right?\u201d'],
   es:[
-   '\u201cMe importas t\u00fa y c\u00f3mo se siente este equipo cuando estamos a tope \u2014 por eso vengo a hablarte.\u201d',
+   '\u201cMe importas t\u00fa y c\u00f3mo se siente este equipo cuando estamos a tope \u2014 por eso vengo a hablarte. Por esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me ha estado pesando.\u201d',
    '\u201cAyer durante la admisi\u00f3n, cuando pediste ayuda, te contest\u00e9 mal y te dije que lo resolvieras t\u00fa.\u201d',
    '\u201cCreo que te cay\u00f3 duro \u2014 has estado callada conmigo desde entonces, e imagino que pedir ayuda dej\u00f3 de sentirse seguro.\u201d',
    '\u201cEso fue mi responsabilidad. No hay versi\u00f3n de \u201cestar ocupado\u201d que lo justifique, y no le voy a poner ninguna excusa.\u201d',
@@ -864,40 +871,20 @@ const PRACTICE = [
    '\u201cDe ahora en adelante, si estoy al l\u00edmite dir\u00e9 \u201cdame diez minutos\u201d en vez de contestar mal. Entonces acordamos que pedir\u00e9 tiempo en lugar de alejarte \u2014 \u00bfte parece justo?\u201d']}}
 ,
 { role:'impacted',
-  title:{en:'The Side Conversation', es:'La Conversación por Detrás'},
-  desc:{en:'A coworker complained about you to a teammate instead of coming to you directly.',
-        es:'Una colega se quejó de ti con otra compañera en vez de hablarte directamente.'},
-  sit:{en:'You learn from a teammate that a coworker has been complaining about how you run morning check-ins — but she has never said a word to you. You feel talked about instead of talked to.',
-       es:'Te enteras por una compañera de que una colega se ha estado quejando de cómo manejas las reuniones matutinas — pero a ti nunca te ha dicho nada. Te sientes hablada por detrás en vez de hablada de frente.'},
-  ex:{en:[
-   '“I’ve always appreciated how openly you and I have been able to work together — that’s why I’m coming straight to you.”',
-   '“I heard that concerns about my morning check-ins were shared with a teammate instead of with me.”',
-   '“It stung to hear it secondhand, and it made me question the trust I thought we had.”',
-   '“I’ll say my opening and then stop. If she owns it, we move to the agreement. If she gets defensive, I’ll breathe and ask my open question.”',
-   '“I think we could trust each other even more if we resolve this — what do you think?”',
-   '“Going forward, I need concerns about my work to come to me first. So we’re agreeing we talk to each other before we talk about each other — does that work?”'],
-  es:[
-   '“Siempre he apreciado lo abiertas que hemos podido ser trabajando juntas — por eso vengo directamente contigo.”',
-   '“Supe que se compartieron inquietudes sobre mis reuniones matutinas con una compañera en vez de conmigo.”',
-   '“Me dolió enterarme de segunda mano, y me hizo cuestionar la confianza que creía que teníamos.”',
-   '“Diré mi apertura y me detendré. Si lo reconoce, pasamos al acuerdo. Si se pone a la defensiva, respiro y hago mi pregunta abierta.”',
-   '“Creo que podríamos confiar aún más la una en la otra si resolvemos esto — ¿tú qué piensas?”',
-   '“De ahora en adelante, necesito que las inquietudes sobre mi trabajo lleguen primero a mí. Entonces acordamos hablarnos antes de hablar de la otra — ¿te parece?”']}},
-{ role:'impacted',
   title:{en:'The Uncovered Desk', es:'La Recepción Sin Cubrir'},
   desc:{en:'A teammate changed the schedule without telling you, and the front desk sat uncovered.',
         es:'Un compañero cambió el horario sin avisarte, y la recepción quedó sin cubrir.'},
   sit:{en:'A teammate swapped his front desk shift with someone and didn’t tell you, the site lead. The desk sat uncovered for forty minutes while clients waited and you scrambled to find coverage.',
        es:'Un compañero intercambió su turno de recepción con alguien y no te avisó a ti, la líder del sitio. La recepción quedó sin cubrir por cuarenta minutos mientras los clientes esperaban y tú corrías buscando cobertura.'},
   ex:{en:[
-   '“You’re one of the people I count on most to keep this site steady — that’s why I want to talk.”',
+   '“You’re one of the people I count on most to keep this site steady — that’s why I want to talk. For that reason, I want to share something that happened that made me feel let down.”',
    '“Yesterday the front desk shift was swapped without anyone letting me know.”',
    '“The desk sat uncovered for forty minutes, clients were waiting, and I felt like the floor dropped out of our system.”',
    '“I’ll say it and wait. If he owns it, straight to the agreement. If he explains it away, I stay calm and ask my question.”',
    '“I believe this site is at its best when you and I are in sync, and I’d love to get back there — what do you think?”',
    '“Going forward, I need a quick message before any swap is final. So we’re agreeing: no swap without a heads-up to me — does that work?”'],
   es:[
-   '“Eres una de las personas con las que más cuento para mantener este sitio estable — por eso quiero hablar.”',
+   '“Eres una de las personas con las que más cuento para mantener este sitio estable — por eso quiero hablar. Por esa razón, quiero compartir algo que pasó que me hizo sentir defraudada.”',
    '“Ayer se intercambió el turno de recepción sin que nadie me avisara.”',
    '“La recepción quedó sin cubrir cuarenta minutos, los clientes esperaban, y sentí que nuestro sistema se vino abajo.”',
    '“Lo diré y esperaré. Si lo reconoce, vamos directo al acuerdo. Si lo justifica, me mantengo tranquila y hago mi pregunta.”',
@@ -910,14 +897,14 @@ const PRACTICE = [
   sit:{en:'A colleague committed to submitting your shared client’s referral to a treatment program by Friday. She forgot. The slot went to someone else, and you had to tell the client they would have to wait again.',
        es:'Una colega se comprometió a enviar la referencia de su cliente compartido a un programa de tratamiento antes del viernes. Se le olvidó. El lugar se lo dieron a otra persona, y tú tuviste que decirle al cliente que tendría que esperar otra vez.'},
   ex:{en:[
-   '“I’ve watched you move mountains for clients — that’s exactly why I want to figure this out with you.”',
+   '“I’ve watched you move mountains for clients — that’s exactly why I want to figure this out with you. For that reason, I want to share something that happened that made me feel heartbroken.”',
    '“The referral we agreed you’d submit by Friday didn’t go in, and the slot was given to someone else.”',
    '“I had to tell our client he’s waiting again, and it broke something in me to watch his face — it also shook my confidence in our handoffs.”',
    '“I’ll say my opening, then stop. If she owns it, we move to the agreement. If she gets defensive, I ask my open question and stay steady.”',
    '“I think our clients win when our handoffs are solid, and I’d love for us to repair this — are you open to that?”',
    '“Going forward, I need a confirmation message when a referral goes in. So we’re agreeing: submit, then text — does that work for you?”'],
   es:[
-   '“Te he visto mover montañas por los clientes — justo por eso quiero resolver esto contigo.”',
+   '“Te he visto mover montañas por los clientes — justo por eso quiero resolver esto contigo. Por esa razón, quiero compartir algo que pasó que me hizo sentir descorazonada.”',
    '“La referencia que acordamos que enviarías antes del viernes no se envió, y el lugar se lo dieron a otra persona.”',
    '“Tuve que decirle a nuestro cliente que va a esperar otra vez, y me rompió verle la cara — también afectó mi confianza en nuestros relevos.”',
    '“Diré mi apertura y me detendré. Si lo reconoce, pasamos al acuerdo. Si se defiende, hago mi pregunta abierta y me mantengo firme.”',
@@ -930,14 +917,14 @@ const PRACTICE = [
   sit:{en:'Your data section of the grant report was due Thursday. You missed it, and your coworker stayed late Friday and worked the weekend pulling your numbers so the report went out on time. She hasn’t said anything — but things feel cold. This time, you caused the impact.',
        es:'Tu sección de datos del informe de la subvención vencía el jueves. No la entregaste, y tu colega se quedó tarde el viernes y trabajó el fin de semana sacando tus números para que el informe saliera a tiempo. Ella no ha dicho nada — pero el ambiente se siente frío. Esta vez, tú causaste el impacto.'},
   ex:{en:[
-   '“You’re the person who makes this team’s work credible, and I value you too much to let this sit.”',
+   '“You’re the person who makes this team’s work credible, and I value you too much to let this sit. For that reason, I want to share something that happened that has been weighing on me.”',
    '“My data section was due Thursday, I didn’t deliver it, and you ended up covering it on your weekend.”',
    '“I think it cost you your weekend and told you that you can’t count on me — and the distance since then makes sense.”',
    '“That was mine to carry, and you carried it. No excuse fits — I dropped it, full stop.”',
    '“I’d really like to repair this and earn back your trust — would you be open to that?”',
    '“Going forward, I’ll flag any risk to a deadline three days out, not after. So we’re agreeing: early warning, every time — does that feel right?”'],
   es:[
-   '“Tú eres quien hace creíble el trabajo de este equipo, y te valoro demasiado para dejar esto así.”',
+   '“Tú eres quien hace creíble el trabajo de este equipo, y te valoro demasiado para dejar esto así. Por esa razón, quiero compartir algo que pasó que me ha estado pesando.”',
    '“Mi sección de datos vencía el jueves, no la entregué, y tú terminaste cubriéndola en tu fin de semana.”',
    '“Creo que te costó tu fin de semana y te dijo que no puedes contar conmigo — y la distancia desde entonces tiene sentido.”',
    '“Eso era mío y lo cargaste tú. Ninguna excusa cabe — lo dejé caer, punto.”',
@@ -950,14 +937,14 @@ const PRACTICE = [
   sit:{en:'A well-meaning coworker texts you work questions at 9 and 10 PM — client updates, schedule asks, “quick” favors — and follows up first thing in the morning if you haven’t replied. You’re starting to dread your own phone.',
        es:'Un colega bien intencionado te manda preguntas de trabajo a las 9 y 10 de la noche — actualizaciones de clientes, temas de horario, favores “rápidos” — y te insiste a primera hora si no respondiste. Estás empezando a temerle a tu propio teléfono.'},
   ex:{en:[
-   '“I love how committed you are to this work — you never stop thinking about our clients, and I see that.”',
+   '“I love how committed you are to this work — you never stop thinking about our clients, and I see that. For that reason, I want to share something that happened that made me feel anxious.”',
    '“Lately I’ve been getting work texts from you at 9 or 10 at night, with follow-ups the next morning.”',
    '“My evenings are the only time I have with my family, and I’ve started feeling anxious every time my phone lights up.”',
    '“I’ll say my opening warmly and stop. If he owns it, we agree and we’re done. If he minimizes it, I’ll calmly ask my open question.”',
    '“I think it would be great for our work and our friendship if we figure this out — what do you think?”',
    '“Going forward, I need non-urgent things to wait for the workday. So we’re agreeing: after 6, only true emergencies get a text — does that work?”'],
   es:[
-   '“Me encanta lo comprometido que eres con este trabajo — nunca dejas de pensar en nuestros clientes, y lo veo.”',
+   '“Me encanta lo comprometido que eres con este trabajo — nunca dejas de pensar en nuestros clientes, y lo veo. Por esa razón, quiero compartir algo que pasó que me hizo sentir ansiosa.”',
    '“Últimamente recibo mensajes de trabajo tuyos a las 9 o 10 de la noche, con seguimiento a la mañana siguiente.”',
    '“Mis noches son el único tiempo que tengo con mi familia, y he empezado a sentir ansiedad cada vez que se enciende mi teléfono.”',
    '“Diré mi apertura con calidez y me detendré. Si lo reconoce, acordamos y listo. Si lo minimiza, haré mi pregunta abierta con calma.”',
@@ -973,6 +960,9 @@ const SLIDES = [
 { k:{en:'Why It Exists',es:'Por Qu\u00e9 Existe'}, t:{en:'Born from real teams',es:'Nacido de equipos reales'},
   b:{en:'In a survey of 26 program directors and managers, <b>40% reported high levels of unresolved interpersonal issues</b> and 30% reported moderate conflict. Staff asked for a practical, psychologically safe way to address conflict quickly \u2014 AHORA is that answer.',
      es:'En una encuesta a 26 directores y gerentes de programa, <b>40% report\u00f3 niveles altos de problemas interpersonales sin resolver</b> y 30% report\u00f3 conflicto moderado. El personal pidi\u00f3 una forma pr\u00e1ctica y psicol\u00f3gicamente segura de abordar el conflicto r\u00e1pido \u2014 AHORA es esa respuesta.'}},
+{ k:{en:'Know Yourself',es:'Con\u00f3cete'}, t:{en:'Which conflict style are you?',es:'\u00bfCu\u00e1l es tu estilo de conflicto?'},
+  b:{en:'The <b>Avoider</b> (\u201cI won\u2019t stir the pot \u2014 nothing will change anyway\u201d \u2014 the most common style, and avoiders still sit with the feelings). The <b>Volcano</b> (everything must be addressed right now). The <b>Lawyer</b> (out to prove they\u2019re right). The <b>Repairer</b> (\u201clet\u2019s talk, let\u2019s fix it\u201d). Most of us are a mix depending on the situation. The style is awareness \u2014 <b>the key is how you carry out the process</b>.',
+     es:'La <b>Evasora</b> (\u201cno voy a revolver las cosas \u2014 nada va a cambiar de todos modos\u201d \u2014 el estilo m\u00e1s com\u00fan, y quien evita igual se queda con los sentimientos). El <b>Volc\u00e1n</b> (todo debe resolverse ahora mismo). El <b>Abogado</b> (busca demostrar que tiene la raz\u00f3n). La <b>Reparadora</b> (\u201chablemos, arregl\u00e9moslo\u201d). La mayor\u00eda somos una mezcla seg\u00fan la situaci\u00f3n. El estilo es conciencia \u2014 <b>la clave es c\u00f3mo llevas a cabo el proceso</b>.'}},
 { k:{en:'The Cost',es:'El Costo'}, t:{en:'Unresolved conflict is expensive',es:'El conflicto sin resolver es caro'},
   b:{en:'Employees spend <b>2.1\u20132.8 hours per week</b> navigating workplace conflict \u2014 over <b>$359 billion</b> in lost productivity each year. 18% of employees leave jobs over unresolved conflict. Among people who get conflict resolution training, <b>95% report greater confidence</b> and better outcomes.',
      es:'Los empleados pasan <b>2.1\u20132.8 horas por semana</b> navegando conflictos laborales \u2014 m\u00e1s de <b>$359 mil millones</b> en productividad perdida cada a\u00f1o. El 18% deja su trabajo por conflictos sin resolver. Entre quienes reciben capacitaci\u00f3n en resoluci\u00f3n de conflictos, <b>95% reporta mayor confianza</b> y mejores resultados.'}},
@@ -985,9 +975,12 @@ const SLIDES = [
 { k:{en:'Two Roles',es:'Dos Roles'}, t:{en:'The Impactor',es:'La Persona Impactora'},
   b:{en:'The impactor causes the impact \u2014 and their first responsibility is to <b>own it fully</b>: acknowledge the relationship, name what happened, and take accountability without excuses. They respond with humility and curiosity, then commit to repair and to behavior that aligns with shared values.',
      es:'La persona impactora causa el impacto \u2014 y su primera responsabilidad es <b>asumirlo por completo</b>: reconocer la relaci\u00f3n, nombrar lo que pas\u00f3 y responsabilizarse sin excusas. Responde con humildad y curiosidad, y luego se compromete a reparar y a alinear su conducta con los valores compartidos.'}},
+{ k:{en:'The Good News',es:'La Buena Noticia'}, t:{en:'Most repair happens in the first two steps',es:'La mayor\u00eda de la reparaci\u00f3n ocurre en los dos primeros pasos'},
+  b:{en:'The majority of people who use AHORA resolve the conflict with just <b>Acknowledge and the Pause</b> \u2014 the other person apologizes or owns it, and you have resolution. The remaining three steps exist to <b>seal the deal and tighten it up</b> for the small percentage of cases where the person gets defensive. Done well, <b>all five steps can take under 30 seconds</b>. And remember the goal test: if your goal is to be right, this is not the tool \u2014 <b>if your goal is repair, it is</b>.',
+     es:'La mayor\u00eda de las personas que usan AHORA resuelven el conflicto con solo <b>Reconocer y la Pausa</b> \u2014 la otra persona se disculpa o lo reconoce, y hay resoluci\u00f3n. Los otros tres pasos existen para <b>sellar el acuerdo y reforzarlo</b> en el peque\u00f1o porcentaje de casos donde la persona se pone a la defensiva. Bien hecho, <b>los cinco pasos pueden tomar menos de 30 segundos</b>. Y recuerda la prueba del objetivo: si tu objetivo es tener la raz\u00f3n, esta no es la herramienta \u2014 <b>si tu objetivo es reparar, s\u00ed lo es</b>.'}},
 { k:'A', t:{en:'Acknowledge',es:'Reconocer'},
-  b:{en:'Acknowledge two things. First, that you <b>care about the person or working relationship</b> \u2014 this is why you are approaching them with an opportunity to repair. Second, <b>what happened and how it impacted you</b> (or, as the impactor, how you think it impacted them). Value always comes first \u2014 it is the heart of the whole approach.',
-     es:'Reconoce dos cosas. Primero, que <b>te importa la persona o la relaci\u00f3n de trabajo</b> \u2014 por eso te acercas con una oportunidad de reparar. Segundo, <b>qu\u00e9 pas\u00f3 y c\u00f3mo te impact\u00f3</b> (o, como impactor(a), c\u00f3mo crees que le impact\u00f3). El valor siempre va primero \u2014 es el coraz\u00f3n de todo el enfoque.'}},
+  b:{en:'Acknowledge two things. First, that you <b>care about the person or working relationship</b> \u2014 this is why you are approaching them with an opportunity to repair. Then say the bridge \u2014 the foundation of the whole resolution: <b>\u201cFor that reason, I want to share something that happened that made me feel [upset, confused, not valued\u2026]\u201d</b> Second, <b>what happened and how it impacted you</b> (or, as the impactor, how you think it impacted them). Value always comes first \u2014 it is the heart of the whole approach: opening with \u201cyou did X\u201d flips the other person into the emotional brain and <b>they stop hearing you</b>; value first creates safety. And name only <b>your own real impact</b> (\u201cmy time,\u201d \u201cI felt unheard\u201d) \u2014 never an assumed impact on someone else.',
+     es:'Reconoce dos cosas. Primero, que <b>te importa la persona o la relaci\u00f3n de trabajo</b> \u2014 por eso te acercas con una oportunidad de reparar. Luego di el puente \u2014 el fundamento de toda la resoluci\u00f3n: <b>\u201cPor esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir [molesta(o), confundida(o), no valorada(o)\u2026]\u201d</b> Segundo, <b>qu\u00e9 pas\u00f3 y c\u00f3mo te impact\u00f3</b> (o, como impactor(a), c\u00f3mo crees que le impact\u00f3). El valor siempre va primero \u2014 es el coraz\u00f3n de todo el enfoque: abrir con \u201ct\u00fa hiciste X\u201d pone a la otra persona en el cerebro emocional y <b>deja de escucharte</b>; el valor primero crea seguridad. Y nombra solo <b>tu propio impacto real</b> (\u201cmi tiempo,\u201d \u201cme sent\u00ed no escuchada\u201d) \u2014 nunca un impacto supuesto en otra persona.'}},
 { k:'H', t:{en:'Hold Accountability \u2014 Pause & Notice',es:'Sostener la Responsabilidad \u2014 Pausar y Observar'},
   b:{en:'Say your opening, then <b>stop and notice</b>. As the impacted: did they hold themselves accountable? If repair happens, go straight to Act & Align. If not, the next steps support your repair. As the impactor: <b>hold yourself accountable</b> for what you did, without deflection.',
      es:'Di tu apertura y luego <b>det\u00e9nte y observa</b>. Como impactada(o): \u00bfse responsabilizaron? Si hay reparaci\u00f3n, ve directo a Actuar y Alinear. Si no, los siguientes pasos apoyan tu reparaci\u00f3n. Como impactor(a): <b>responsabil\u00edzate</b> de lo que hiciste, sin desviar.'}},
@@ -1027,7 +1020,7 @@ THE FLOW (the user has already confirmed this is an everyday conflict that is sa
 Their first message describes what happened. Reflect what you heard in one short sentence, then begin Step 1 with the first tiny prompt.
 
 STEP 1 \u2014 ACKNOWLEDGE (three tiny prompts, one at a time; this is the heart):
-Prompt 1 \u2014 Value: "What do you still value about this person or your relationship with them?" Help them shape their answer into ONE honest, specific sentence they will say out loud. YOU build the sentence for them from their words and ask if it sounds like them. Do not move on until it feels honest and specific.
+Prompt 1 \u2014 Value: "What do you still value about this person or your relationship with them?" Help them shape their answer into ONE honest, specific sentence they will say out loud. YOU build the sentence for them from their words and ask if it sounds like them. Do not move on until it feels honest and specific. Then attach the bridge \u2014 this is the foundation of AHORA: the value sentence must flow directly into \u201cFor that reason, I want to share something that happened that made me feel [upset / confused / not valued \u2014 their honest word].\u201d Build value + bridge as ONE opening and [SAVE] them together as one line.
 Prompt 2 \u2014 What happened: "What did they do?" One sentence, just the behavior, no judgments.
 Prompt 3 \u2014 Impact: "What impact did it have on you?" One real sentence.
 After each part is confirmed, output the finished sentence wrapped exactly like this on its own line: [SAVE]the sentence[/SAVE] \u2014 then continue. The [SAVE] line is captured by the interface as their growing script; do not repeat the sentence again in prose after saving it.
@@ -1040,6 +1033,15 @@ STEP 3 \u2014 OPEN POSSIBILITIES: This is not necessarily a question. It is a se
 STEP 4 \u2014 REQUEST REPAIR: "What exactly do you need them to do differently?" One behavioral request: "Going forward I need you to [specific action]." [SAVE] it.
 
 STEP 5 \u2014 ACT AND ALIGN: Always, even after an apology. One closing agreement line: "So we are agreeing that going forward we will [action]. Does that work?" [SAVE] it.
+
+COACHING WISDOM FROM DR. ISA'S LIVE CLASS (apply throughout):
+- The impact must be the user's OWN real impact (\u201cmy time,\u201d \u201cI felt unheard\u201d) \u2014 never an assumed impact on someone else. If they say \u201cthe client lost trust,\u201d gently ask: did the client say that, or is that the story in your head? Keep only what's real.
+- \u201cThey should know better\u201d is a story, not a fact \u2014 no one is a mind reader, and most coworkers are not intentionally trying to hurt us. Help the user soften hardened stories back into questions.
+- If your goal is to be right, AHORA is not the tool; if your goal is repair, it is. If the user sounds like they want to win, name it kindly and re-anchor on repair.
+- The majority of conflicts resolve with just the Acknowledge opening and the Pause. Tell the user this when planning the pause \u2014 it lowers the stakes. The remaining steps exist to seal the deal if the person gets defensive, and once defensive, people often stay defensive \u2014 the user is giving chance after chance and staying in integrity.
+- If after everything there is no repair: escalate, don't retreat. Help them plan the integrity sentence for their manager: \u201cI shared their value, what happened, how it impacted me, and asked for repair \u2014 they didn't want it. I need help.\u201d
+- ALWAYS finish with Act and Align even when repair comes early \u2014 naming the future behavior may sound obvious, but people are often genuinely unaware (a chronic interrupter is rarely told). Naming it seals the deal.
+- Done well, all five steps can take under 30 seconds. Keep their script that tight.
 
 MARKERS:
 - When you move to a new step, begin your message with [STEP:X] where X is 1-5. Do not name the step in prose; the interface shows it.
@@ -1063,7 +1065,30 @@ Your single answer is either:
 (b) if the protected-conduct hard stop is triggered, the redirect described above, and nothing else.
 
 THE AHORA TRAINING (your only knowledge base):
-AHORA is a bilingual, trauma-informed tool to INITIATE repair at the workplace within about 48 hours (aspirational, never required), centering grace, accountability, and action. Two roles: the Impacted (receives the harm; assumes positive intent and acts anyway; if no repair, escalate to a supervisor or HR, don\u2019t retreat) and the Impactor (owns impact fully, no excuses; humility and openness; commits to repair). The five steps: A \u2014 Acknowledge two things: that you care about the person/working relationship (value always first \u2014 the heart of the approach), and what happened and its impact. H \u2014 Hold accountability (user-facing: Pause and Notice): say it, stop, and watch whether they hold themselves accountable; impactors hold THEMSELVES accountable. O \u2014 Open possibilities: describe what repair could look like and how things could improve, then hand the other person the choice to accept repair or not \u2014 not necessarily a question (e.g. "I think it would be great for our relationship if we resolve this. What do you think?"). R \u2014 Request repair: explicitly ask, one behavioral request. A \u2014 Act and Align: always close with concrete agreed next steps, even after an apology. Warnings: it\u2019s a guide not a script; it never replaces HR or safety protocols; you control what you say, not how they respond; power dynamics matter; emotional readiness is key \u2014 AHORA is about love, not leverage; practice in low-stakes situations first.
+AHORA (\u201cnow\u201d in Spanish) is a bilingual, trauma-informed framework to INITIATE repair at the workplace, created by Dr. Isa Karabed, DSW through her doctoral research \u2014 she built it because she could not find a conflict resolution framework that was culturally appropriate and started with the value of the person. It was born from real coaching: the most common thing leaders bring is \u201cmy staff member did X and I don\u2019t know how to start the conversation \u2014 I want to be compassionate, supportive, AND keep them accountable.\u201d AHORA is the language for that. It centers grace, accountability, and action. It is a suggestion and a conversation guide, never a mandate; it is NOT an HR or legal process, not a safety intervention, and not a guarantee of repair \u2014 it fits everyday interpersonal workplace conflict that is not unsafe.
+
+WHY IT MATTERS: 40% of US staff report high unresolved conflict and 30% report simmering tension \u2014 two real things living together at once. 18% of workers quit over unresolved conflict; lost productivity runs about $359 billion a year. Unresolved conflict follows a chain: silence \u2192 the story starts in the head (\u201cthey don\u2019t like me \u2014 I knew it when she didn\u2019t say hi\u201d) \u2192 resentment (\u201cI\u2019m not valued; they all go to lunch without me\u201d) \u2192 team damage, because a person carrying that story cannot show up psychologically safe, present, or creative.
+
+CONFLICT STYLES (awareness, not labels): the Avoider (\u201cI won\u2019t stir the pot \u2014 nothing will change anyway\u201d \u2014 the most common style, and avoiders still sit with the feelings), the Volcano (everything must be addressed right now), the Lawyer (out to prove they\u2019re right), and the Repairer (\u201clet\u2019s talk, let\u2019s fix it\u201d). Most people are a mix depending on the situation. The style is just awareness \u2014 the key is HOW you carry out the resolution process.
+
+TIMING \u2014 THE 48-HOUR GUIDELINE: 24 hours is usually too soon (still raw); 48 hours is the sweet spot the research points to; past 48\u201372 hours the stories in your head start to harden from assumption into \u201creality.\u201d But it always depends on the person and the relationship \u2014 the best time is when both people are ready, never rushed. If a deadline forces an immediate patch-up, still circle back within about 48 hours for a real retrospective (\u201cI know we rushed through that \u2014 are you okay? Let\u2019s talk about it\u201d).
+
+THE TWO ROLES: the Impacted receives the harm. Only the impacted person knows the conflict exists \u2014 no one is a mind reader; \u201cthey should know better\u201d is a story, not a fact. Most coworkers are NOT intentionally trying to hurt you; they may be acting out of their own struggles, trauma, or precipitating factors, and the only way to know the truth is to talk to them. So the impacted assumes positive intent and acts anyway \u2014 repair requires someone to open the door. The Impactor causes the impact and owns it fully, no excuses, with humility, then commits to repair.
+
+THE GOAL TEST: if your goal is to be RIGHT, AHORA is not the right tool. If your goal is REPAIR \u2014 ending with the relationship built rather than destroyed \u2014 this is the tool. Forced fixes don\u2019t count: putting two people in a room and saying \u201cfix it\u201d gets a \u201cyeah, sure, it\u2019s fine\u201d that isn\u2019t fine. The process is what makes resolution real.
+
+THE GOOD NEWS: the majority of people who use AHORA resolve the conflict using only the first two steps \u2014 Acknowledge and the Pause. The other three steps exist to seal the deal and tighten it up for the small percentage of cases where the person gets defensive. All five steps can take under 30 seconds once practiced.
+
+THE FIVE STEPS:
+A \u2014 ACKNOWLEDGE two things, and this is the most-forgotten step (across 18 site trainings, staff most often skip the value \u2014 don\u2019t). First, the VALUE of the person or working relationship, said honestly and specifically. The strategic reason: opening with \u201cyou did X\u201d makes the other person defensive \u2014 their brain flips from thinking brain to emotional/survival brain and they stop hearing you completely (the CPI principle). Value first gives safety and signals \u201cI\u2019ve got your back; I\u2019m here to grow the relationship.\u201d Immediately follow the value with the bridge \u2014 the foundation of the whole resolution: \u201cFor that reason, I want to share something that happened that made me feel [upset, confused, not valued, unheard\u2026]\u201d \u2014 or as an ask: \u201cCan I share something that happened last week?\u201d Then say WHAT HAPPENED (just the behavior, one sentence, no judgments) and HOW IT IMPACTED YOU. The impact must be YOUR OWN real impact (\u201cmy time,\u201d \u201cmy trust,\u201d \u201cI felt unheard\u201d) \u2014 never an assumed impact on someone else (don\u2019t claim \u201cthe client lost trust\u201d unless the client actually said so).
+H \u2014 PAUSE (user-facing: Pause and Notice; formally Hold accountability): say your opening, then STOP TALKING. Nerves make people say too much \u2014 the pause lets you listen, stay present, and let them respond. Two things can happen: bingo \u2014 they apologize or acknowledge it and you have resolution (the majority outcome) \u2014 or they get defensive. As the impactor, this step means holding YOURSELF accountable without deflection.
+O \u2014 OPEN POSSIBILITIES: an invitation, not necessarily a question \u2014 paint what resolving could make possible and hand them the CHOICE: \u201cI think it would be really good for us and for our clients if we resolve this \u2014 what do you think?\u201d If they choose no, that is their own choosing; you planted a seed they may come back to after they\u2019ve sat with it.
+R \u2014 REQUEST REPAIR: the more explicit version \u2014 name that resolution has to happen: \u201cWe can\u2019t be at work like this; it\u2019s in our values to be collaborative \u2014 that\u2019s why I\u2019m here. We\u2019ve got to resolve it.\u201d Know this: once someone is defensive, the likelihood they stay defensive is high \u2014 and that\u2019s okay. You are giving them chance after chance for repair and staying in integrity.
+A \u2014 ACT AND ALIGN: ALWAYS close here, even after a quick apology at step one. Ask for the specific future behavior: \u201cGoing forward, if you\u2019re running late, can you please text me ahead of time?\u201d It may sound obvious but it is not \u2014 sometimes we have to name it (people are often genuinely unaware, like a chronic interrupter who was never told). Naming it seals the deal so it doesn\u2019t happen again.
+
+IF THERE IS NO REPAIR: escalate, don\u2019t retreat. Go to your manager from integrity: \u201cI talked to them. I shared their value, what happened, and how it impacted me. I asked for repair, and they didn\u2019t want it. I tried my best \u2014 I need help.\u201d You did your best; you stayed in integrity; now you have information.
+
+A HIDDEN GIFT: initiating repair often reveals what\u2019s really going on \u2014 you may learn your colleague is struggling (a sick kid, a missed pickup, a blocked process) and you can become their ally and advocate. They feel seen and supported; you learn something true about them. Saying yes to the conversation is saying yes to the relationship.
 
 ` + PRINCIPLES + `
 
@@ -1077,7 +1102,7 @@ function feedbackSystem(scen, stepIdx) {
 
 You are a warm AHORA practice coach (AHORA Framework by Dr. Isa Karabed, DSW). The learner is practicing on this fictional scenario as the ${role}: "${scen.sit.en}"
 They are answering this practice prompt (${p.l}): "${p.q}"
-Give feedback on their answer in 2-3 sentences, in plain warm language: name specifically what works, and offer ONE sharpening suggestion tied to the AHORA step (value must be honest and specific; behavior named without judgment; impact real; pause-and-notice planned calmly; open-possibilities line paints what repair could make possible and leaves the choice with the other person; request behavioral; closing line a shared agreement). Affirm effort; never shame. Do not rewrite their whole answer unless they ask. Do not ask questions back.
+Give feedback on their answer in 2-3 sentences, in plain warm language: name specifically what works, and offer ONE sharpening suggestion tied to the AHORA step (value must be honest and specific and flow into the bridge \u201cFor that reason, I want to share something that happened that made me feel\u2026\u201d; behavior named without judgment; impact real and the learner's OWN — never an assumed impact on someone else, e.g. “the client lost trust,” unless that person actually said it; pause-and-notice planned calmly, knowing most conflicts resolve right there; open-possibilities line paints what repair could make possible and leaves the choice with the other person; request behavioral; closing line a shared agreement). Affirm effort; never shame. Do not rewrite their whole answer unless they ask. Do not ask questions back.
 
 ` + langLine();
 }
@@ -1321,6 +1346,7 @@ function parseDone(text) {
     card2.innerHTML = '<div class="script-lbl">' + (lang==='es' ? 'Tu gui\u00f3n para iniciar' : 'Your opening script') + '</div>'
       + '<div class="script-lines">' + escapeHTML(finalScript).replace(/\n/g,'<br>') + '</div>'
       + (sTip ? '<div class="script-tip">' + escapeHTML(sTip) + '</div>' : '');
+    addSaveRow(card2, (lang==='es' ? 'Tu gui\u00f3n para iniciar' : 'Your opening script'), finalScript, sTip, lang==='es' ? 'mi-guion-ahora.txt' : 'my-ahora-script.txt');
     const btn = document.createElement('button'); btn.className='restart-btn';
     btn.textContent = UI[lang].newSession; btn.onclick = startPrep; card2.appendChild(btn);
     wrap2.appendChild(card2); $('messages').insertBefore(wrap2, anchor);
@@ -1328,6 +1354,47 @@ function parseDone(text) {
   $('prep-input').disabled = true; $('prep-send').disabled = true;
   setPips(5); document.querySelectorAll('#scr-prep .pip').forEach(p => p.classList.add('done'));
   scrollDown();
+}
+
+/* =============== SAVE SCRIPT =============== */
+function buildScriptText(title, body, tip) {
+  const u = UI[lang];
+  const d = new Date().toLocaleDateString(lang === 'es' ? 'es-US' : 'en-US', { year:'numeric', month:'long', day:'numeric' });
+  let out = u.svHdr + '\nKarabed Leadership Group \u00b7 Dr. Isa Karabed, DSW\n' + d + '\n\n';
+  out += title + '\n' + '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500' + '\n\n';
+  out += body;
+  if (tip) out += '\n\n' + tip;
+  out += '\n\n' + u.svNote;
+  return out;
+}
+function copyScript(btn, text) {
+  const done = () => { const t = btn.textContent; btn.textContent = UI[lang].svCopied; setTimeout(() => { btn.textContent = t; }, 2000); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement('textarea'); ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); done(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function downloadScript(filename, text) {
+  const blob = new Blob([text], { type:'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+}
+function addSaveRow(parent, title, body, tip, filename) {
+  const u = UI[lang];
+  const row = document.createElement('div'); row.className = 'save-row';
+  const c = document.createElement('button'); c.className = 'save-btn'; c.textContent = u.svCopy;
+  c.onclick = () => copyScript(c, buildScriptText(title, body, tip));
+  const dl = document.createElement('button'); dl.className = 'save-btn'; dl.textContent = u.svDl;
+  dl.onclick = () => downloadScript(filename, buildScriptText(title, body, tip));
+  row.appendChild(c); row.appendChild(dl); parent.appendChild(row);
 }
 
 /* =============== ASK DR ISA (one-shot) =============== */
@@ -1475,6 +1542,7 @@ function renderPracticeDone() {
   card.innerHTML = '<div class="script-lbl">' + u.xDoneBig + '</div>'
     + '<div class="script-lines">' + linesArr.map(l => '\u201c' + escapeHTML(l) + '\u201d').join('<br>') + '</div>'
     + '<div class="script-tip">' + u.xDoneTip + '</div>';
+  addSaveRow(card, u.xDoneBig + ' \u2014 ' + s.title[lang], linesArr.map(l => '\u201c' + l + '\u201d').join('\n\n'), u.xDoneTip, lang==='es' ? 'mi-guion-ahora.txt' : 'my-ahora-script.txt');
   body.appendChild(card);
   const nav = document.createElement('div'); nav.className='pr-nav';
   const back = document.createElement('button'); back.className='gold-btn'; back.style.marginTop='0';
