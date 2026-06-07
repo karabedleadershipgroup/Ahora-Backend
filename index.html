@@ -341,6 +341,10 @@
     <div class="home-body scrollable">
       <div class="conf-note" id="h-note"></div>
       <div class="picker-head" id="h-pick"></div>
+      <button class="mode-card" onclick="openMode('training')">
+        <div class="mode-icon">&#9885;</div>
+        <div><div class="mode-name" id="m6-n"></div><div class="mode-desc" id="m6-d"></div></div>
+      </button>
       <button class="mode-card" onclick="openMode('prep')">
         <div class="mode-icon">&#9998;</div>
         <div><div class="mode-name" id="m1-n"></div><div class="mode-desc" id="m1-d"></div></div>
@@ -437,6 +441,16 @@
     <div class="card-body scrollable" id="practice-body"></div>
   </div>
 
+  <!-- TAKE THE TRAINING -->
+  <div class="screen" id="scr-training">
+    <div class="mode-banner">
+      <img class="banner-img" alt="">
+      <div class="hero-grad"></div>
+      <div class="hero-text"><div class="hero-eyebrow" id="tr-eyebrow"></div><div class="hero-title" id="tr-title"></div></div>
+    </div>
+    <div class="card-body scrollable" id="training-body"></div>
+  </div>
+
   <!-- REFRESHER -->
   <div class="screen" id="scr-refresher">
     <div class="mode-banner">
@@ -526,7 +540,12 @@ en: {
   xNext:'Next question', xBack:'Choose another scenario', xDoneBig:'Your practice script',
   xDoneTip:'Say it from a calm, grounded place. After your opening, stop and listen.',
   rTitle:'Curriculum Refresher', rPrev:'Back', rNext:'Next', rDone:'Back to start', slide:'Card',
-  svCopy:'Copy my script', svCopied:'Copied!', svDl:'Download my script', svHdr:'AHORA \u2014 Resilient Conflict Resolution', svNote:'Practice tool \u2014 not a substitute for HR, supervision, or therapeutic support.'
+  svCopy:'Copy my script', svCopied:'Copied!', svDl:'Download my script',
+  m6n:'Take the Training', m6d:'New to AHORA? Walk through the full training, one idea at a time \u2014 with reflection as you go.',
+  trTitle:'The AHORA Training', trCounter:'Lesson', trReflect:'Reflect', trPh:'Write your answer here\u2026',
+  trSend:'Share my answer', trNext:'Next lesson', trSkip:'Skip this question', trWho:'Dr. Isa responds',
+  trDoneBig:'You completed the AHORA training.', trDone:'You now have the language to initiate repair \u2014 value first, the bridge, what happened, your own impact, the pause, and the agreement that seals it. Your next step: take it to Scenario Practice and try it on a real workplace situation.',
+  trGoPractice:'Practice a scenario', trRestart:'Take it again', svHdr:'AHORA \u2014 Resilient Conflict Resolution', svNote:'Practice tool \u2014 not a substitute for HR, supervision, or therapeutic support.'
 },
 es: {
   hdrSub:'Karabed Leadership Group',
@@ -560,7 +579,12 @@ es: {
   xNext:'Siguiente pregunta', xBack:'Elegir otro escenario', xDoneBig:'Tu gui\u00f3n de pr\u00e1ctica',
   xDoneTip:'Dilo desde un lugar tranquilo y firme. Despu\u00e9s de tu apertura, det\u00e9nte y escucha.',
   rTitle:'Repaso del Curr\u00edculo', rPrev:'Atr\u00e1s', rNext:'Siguiente', rDone:'Volver al inicio', slide:'Tarjeta',
-  svCopy:'Copiar mi gui\u00f3n', svCopied:'\u00a1Copiado!', svDl:'Descargar mi gui\u00f3n', svHdr:'AHORA \u2014 Resoluci\u00f3n Resiliente de Conflictos', svNote:'Herramienta de pr\u00e1ctica \u2014 no sustituye a RR.HH., supervisi\u00f3n ni apoyo terap\u00e9utico.'
+  svCopy:'Copiar mi gui\u00f3n', svCopied:'\u00a1Copiado!', svDl:'Descargar mi gui\u00f3n',
+  m6n:'Toma el Entrenamiento', m6d:'\u00bfNuevo en AHORA? Recorre el entrenamiento completo, una idea a la vez \u2014 con reflexi\u00f3n en el camino.',
+  trTitle:'El Entrenamiento AHORA', trCounter:'Lecci\u00f3n', trReflect:'Reflexiona', trPh:'Escribe tu respuesta aqu\u00ed\u2026',
+  trSend:'Compartir mi respuesta', trNext:'Siguiente lecci\u00f3n', trSkip:'Saltar esta pregunta', trWho:'La Dra. Isa responde',
+  trDoneBig:'Completaste el entrenamiento AHORA.', trDone:'Ahora tienes el lenguaje para iniciar la reparaci\u00f3n \u2014 el valor primero, el puente, lo que pas\u00f3, tu propio impacto, la pausa y el acuerdo que lo sella. Tu siguiente paso: ll\u00e9valo a la Pr\u00e1ctica de Escenarios y pru\u00e9balo en una situaci\u00f3n real de trabajo.',
+  trGoPractice:'Practicar un escenario', trRestart:'Tomarlo de nuevo', svHdr:'AHORA \u2014 Resoluci\u00f3n Resiliente de Conflictos', svNote:'Herramienta de pr\u00e1ctica \u2014 no sustituye a RR.HH., supervisi\u00f3n ni apoyo terap\u00e9utico.'
 }};
 
 /* =============== TERMS OF SERVICE =============== */
@@ -1108,7 +1132,7 @@ Give feedback on their answer in 2-3 sentences, in plain warm language: name spe
 }
 
 /* =============== API =============== */
-const PROXY = 'https://ahora-backend.vercel.app/api/chat';
+const PROXY = '/api/chat';
 const DIRECT = 'https://api.anthropic.com/v1/messages';
 async function callAPI(system, messages) {
   const body = JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system, messages });
@@ -1150,6 +1174,8 @@ function applyStrings() {
   $('m1-n').textContent=u.m1n; $('m1-d').textContent=u.m1d; $('m2-n').textContent=u.m2n; $('m2-d').textContent=u.m2d;
   $('m3-n').textContent=u.m3n; $('m3-d').textContent=u.m3d; $('m4-n').textContent=u.m4n; $('m4-d').textContent=u.m4d;
   $('m5-n').textContent=u.m5n; $('m5-d').textContent=u.m5d;
+  $('m6-n').textContent=u.m6n; $('m6-d').textContent=u.m6d;
+  $('tr-eyebrow').textContent=u.hEyebrow; $('tr-title').textContent=u.trTitle;
   $('p-eyebrow').textContent=u.hEyebrow; $('p-title').textContent=u.pTitle;
   $('prep-input').placeholder=u.pPh; $('prep-quote').textContent=u.pQuote; $('sp-lbl').textContent=u.spLbl;
   $('a-eyebrow').textContent=u.hEyebrow; $('a-title').textContent=u.aTitle; $('a-intro').textContent=u.aIntro;
@@ -1161,6 +1187,7 @@ function applyStrings() {
   if (currentScreen==='value') renderValue();
   if (currentScreen==='practice') renderPractice();
   if (currentScreen==='refresher') renderRef();
+  if (currentScreen==='training') renderTraining();
   updateStepLabel();
 }
 
@@ -1184,6 +1211,7 @@ function openMode(m) {
   else if (m === 'value') { vsIdx = 0; vsLocked = false; renderValue(); show('value'); }
   else if (m === 'practice') { prState = { scen:null }; renderPractice(); show('practice'); }
   else if (m === 'refresher') { refIdx = 0; renderRef(); show('refresher'); }
+  else if (m === 'training') { trState = { idx:0, phase:'read', stopped:false, busy:false }; renderTraining(); show('training'); }
 }
 </script>
 <script>
@@ -1548,6 +1576,139 @@ function renderPracticeDone() {
   const back = document.createElement('button'); back.className='gold-btn'; back.style.marginTop='0';
   back.textContent = u.xBack; back.onclick = () => { prState = { scen:null }; renderPractice(); };
   nav.appendChild(back); body.appendChild(nav);
+}
+
+/* =============== TAKE THE TRAINING (participants) =============== */
+const TRAINING = [
+{ t:{en:'Welcome to AHORA', es:'Bienvenido(a) a AHORA'},
+  b:{en:'AHORA means \u201cnow\u201d in Spanish. Dr. Isa Karabed, DSW created it through her doctoral research because she could not find a conflict resolution framework that was culturally appropriate and started with the value of the person. AHORA is a repair framework and a conversation guide \u2014 language for the moment you don\u2019t know what to say. It is a suggestion, never a mandate, and it is not an HR or legal process: if a situation feels unsafe or involves serious conduct, go to your supervisor or HR. One test before you use it: <b>if your goal is to be right, this is not the tool. If your goal is repair \u2014 ending with the relationship built rather than destroyed \u2014 it is.</b>',
+     es:'AHORA significa eso: ahora. La Dra. Isa Karabed, DSW lo cre\u00f3 en su investigaci\u00f3n doctoral porque no encontr\u00f3 un marco de resoluci\u00f3n de conflictos que fuera culturalmente apropiado y que comenzara con el valor de la persona. AHORA es un marco de reparaci\u00f3n y una gu\u00eda de conversaci\u00f3n \u2014 lenguaje para el momento en que no sabes qu\u00e9 decir. Es una sugerencia, nunca una obligaci\u00f3n, y no es un proceso de RR.HH. ni legal: si una situaci\u00f3n se siente insegura o involucra conducta seria, acude a tu supervisor(a) o a RR.HH. Una prueba antes de usarlo: <b>si tu objetivo es tener la raz\u00f3n, esta no es la herramienta. Si tu objetivo es reparar \u2014 terminar con la relaci\u00f3n construida y no destruida \u2014 s\u00ed lo es.</b>'},
+  q:{en:'What brings you to this training \u2014 and honestly, is your goal usually to be right, or to repair?',
+     es:'\u00bfQu\u00e9 te trae a este entrenamiento \u2014 y honestamente, tu objetivo suele ser tener la raz\u00f3n o reparar?'} },
+{ t:{en:'Which conflict style are you?', es:'\u00bfCu\u00e1l es tu estilo de conflicto?'},
+  b:{en:'The <b>Avoider</b>: \u201cI\u2019m not going to stir the pot \u2014 nothing will change anyway.\u201d The most common style \u2014 and avoiders still sit with the feelings. The <b>Volcano</b>: everything must be addressed right now, right now. The <b>Lawyer</b>: out to prove they\u2019re right and you\u2019re wrong. The <b>Repairer</b>: \u201clet\u2019s talk, let\u2019s fix it\u201d \u2014 yours and everyone else\u2019s conflicts. Most of us are a mix depending on the situation. The style is just awareness \u2014 <b>the key is how you carry out the process.</b>',
+     es:'La <b>Evasora</b>: \u201cno voy a revolver las cosas \u2014 nada va a cambiar de todos modos.\u201d El estilo m\u00e1s com\u00fan \u2014 y quien evita igual se queda con los sentimientos. El <b>Volc\u00e1n</b>: todo debe resolverse ahora mismo. El <b>Abogado</b>: busca demostrar que tiene la raz\u00f3n y t\u00fa no. La <b>Reparadora</b>: \u201chablemos, arregl\u00e9moslo\u201d \u2014 tus conflictos y los de todos. La mayor\u00eda somos una mezcla seg\u00fan la situaci\u00f3n. El estilo es solo conciencia \u2014 <b>la clave es c\u00f3mo llevas a cabo el proceso.</b>'},
+  q:{en:'Which style sounds most like you \u2014 and what does it look like when conflict shows up in your week?',
+     es:'\u00bfCu\u00e1l estilo se parece m\u00e1s a ti \u2014 y c\u00f3mo se ve cuando aparece un conflicto en tu semana?'} },
+{ t:{en:'The story in the head', es:'La historia en la cabeza'},
+  b:{en:'40% of staff report high unresolved conflict, 30% report simmering tension \u2014 two real things living together \u2014 and 18% of workers quit over it. Here is how it grows: silence \u2192 the story starts in the head (\u201cthey don\u2019t like me \u2014 I knew it when she didn\u2019t say hi\u201d) \u2192 resentment (\u201cI\u2019m not valued; they all go to lunch without me\u201d) \u2192 team damage, because a person carrying that story can\u2019t show up safe, present, or creative. But remember: <b>no one is a mind reader.</b> \u201cThey should know better\u201d is a story, not a fact \u2014 and most coworkers are not intentionally trying to hurt you. The only way to know the truth is to talk to them.',
+     es:'El 40% del personal reporta conflicto alto sin resolver, el 30% reporta tensi\u00f3n latente \u2014 dos cosas reales que viven juntas \u2014 y el 18% de los trabajadores renuncia por eso. As\u00ed crece: silencio \u2192 la historia empieza en la cabeza (\u201cno le caigo bien \u2014 lo supe cuando no me salud\u00f3\u201d) \u2192 resentimiento (\u201cno me valoran; todos van a almorzar sin m\u00ed\u201d) \u2192 da\u00f1o al equipo, porque quien carga esa historia no puede llegar segura, presente ni creativa. Pero recuerda: <b>nadie lee mentes.</b> \u201cDeber\u00edan saberlo\u201d es una historia, no un hecho \u2014 y la mayor\u00eda de tus colegas no intenta lastimarte. La \u00fanica forma de saber la verdad es hablar con la persona.'},
+  q:{en:'Think of a story your head once wrote about a coworker. What did carrying it cost you?',
+     es:'Piensa en una historia que tu cabeza escribi\u00f3 alguna vez sobre un(a) colega. \u00bfQu\u00e9 te cost\u00f3 cargarla?'} },
+{ t:{en:'The 48-hour window', es:'La ventana de 48 horas'},
+  b:{en:'24 hours is usually too soon \u2014 it still feels like it just happened. <b>48 hours is the sweet spot</b> the research points to. Past 48\u201372 hours, the stories in your head start to harden from assumption into \u201creality.\u201d But this is a guideline, never a rule: it depends on the person and the relationship, and the best time is when both people are ready \u2014 never rushed. And if a deadline forces you to patch something up fast, still circle back within about 48 hours: \u201cI know we rushed through that \u2014 are you okay? Let\u2019s talk about it.\u201d',
+     es:'24 horas suele ser demasiado pronto \u2014 todav\u00eda se siente como si acabara de pasar. <b>48 horas es el punto ideal</b> que se\u00f1ala la investigaci\u00f3n. Despu\u00e9s de 48\u201372 horas, las historias en tu cabeza empiezan a endurecerse de suposici\u00f3n a \u201crealidad.\u201d Pero es una gu\u00eda, nunca una regla: depende de la persona y la relaci\u00f3n, y el mejor momento es cuando ambas personas est\u00e1n listas \u2014 nunca con prisa. Y si una fecha l\u00edmite te obliga a arreglar algo r\u00e1pido, vuelve dentro de unas 48 horas: \u201cS\u00e9 que pasamos por eso corriendo \u2014 \u00bfest\u00e1s bien? Hablemos.\u201d'},
+  q:{en:'Why do you think waiting too long makes repair harder?',
+     es:'\u00bfPor qu\u00e9 crees que esperar demasiado hace m\u00e1s dif\u00edcil la reparaci\u00f3n?'} },
+{ t:{en:'A \u2014 Start with value, then the bridge', es:'A \u2014 Empieza con el valor, luego el puente'},
+  b:{en:'This is the most-forgotten step \u2014 don\u2019t skip it. If you open with \u201cyou didn\u2019t turn in the data\u201d or \u201cyou showed up late,\u201d the other person\u2019s brain flips from thinking brain to emotional brain and <b>they stop hearing you completely.</b> So we start with the honest, specific value of the person or the relationship: \u201cI really appreciate you as a colleague, and I love when we share shifts together.\u201d Then comes <b>the bridge \u2014 the foundation of the whole resolution:</b> \u201cFor that reason, I want to share something that happened that made me feel upset / confused / not valued\u2026\u201d The value gives them safety; the bridge opens the door.',
+     es:'Este es el paso que m\u00e1s se olvida \u2014 no lo saltes. Si abres con \u201cno entregaste los datos\u201d o \u201cllegaste tarde,\u201d el cerebro de la otra persona pasa del cerebro pensante al cerebro emocional y <b>deja de escucharte por completo.</b> Por eso empezamos con el valor honesto y espec\u00edfico de la persona o la relaci\u00f3n: \u201cTe aprecio mucho como colega, y me encanta cuando compartimos turnos.\u201d Luego viene <b>el puente \u2014 el fundamento de toda la resoluci\u00f3n:</b> \u201cPor esa raz\u00f3n, quiero compartir algo que pas\u00f3 que me hizo sentir molesta / confundida / no valorada\u2026\u201d El valor da seguridad; el puente abre la puerta.'},
+  q:{en:'Think of a real working relationship. What is one honest sentence of value you could say out loud \u2014 followed by your bridge?',
+     es:'Piensa en una relaci\u00f3n de trabajo real. \u00bfCu\u00e1l es una oraci\u00f3n honesta de valor que podr\u00edas decir en voz alta \u2014 seguida de tu puente?'} },
+{ t:{en:'A \u2014 What happened, and YOUR impact', es:'A \u2014 Qu\u00e9 pas\u00f3, y TU impacto'},
+  b:{en:'After the value and the bridge, say <b>what happened</b>: just the behavior, one sentence, no judgments. \u201cLast Tuesday you arrived an hour after our appointment without calling or texting me.\u201d Then say <b>how it impacted you</b> \u2014 and this part must be <b>your own real impact</b>: \u201cmy time,\u201d \u201cmy trust,\u201d \u201cI felt unheard.\u201d Never an assumed impact on someone else \u2014 don\u2019t say \u201cthe client lost trust in us\u201d unless the client actually said so. Stick to what is true for you; that is what makes it safe to hear.',
+     es:'Despu\u00e9s del valor y el puente, di <b>qu\u00e9 pas\u00f3</b>: solo la conducta, una oraci\u00f3n, sin juicios. \u201cEl martes pasado llegaste una hora despu\u00e9s de nuestra cita sin llamarme ni escribirme.\u201d Luego di <b>c\u00f3mo te impact\u00f3</b> \u2014 y esta parte debe ser <b>tu propio impacto real</b>: \u201cmi tiempo,\u201d \u201cmi confianza,\u201d \u201cme sent\u00ed no escuchada.\u201d Nunca un impacto supuesto en otra persona \u2014 no digas \u201cel cliente perdi\u00f3 la confianza\u201d a menos que el cliente lo haya dicho. Qu\u00e9date con lo que es verdad para ti; eso es lo que lo hace seguro de escuchar.'},
+  q:{en:'For your situation: name the behavior with no judgment, then your own real impact \u2014 two short sentences.',
+     es:'Para tu situaci\u00f3n: nombra la conducta sin juicio, y luego tu propio impacto real \u2014 dos oraciones cortas.'} },
+{ t:{en:'H \u2014 Then stop talking', es:'H \u2014 Luego deja de hablar'},
+  b:{en:'You\u2019ve said your opening \u2014 now <b>pause.</b> When we\u2019re nervous, we want to say too much; the pause lets you listen, stay present, and let the other person respond. Two things can happen. <b>Bingo:</b> they apologize or own it \u2014 \u201cOh my gosh, I\u2019m sorry, I didn\u2019t realize\u201d \u2014 and you have resolution. That is the majority outcome: <b>most people resolve the conflict with just the opening and the pause.</b> Or: they get defensive. That\u2019s okay too \u2014 the next steps exist exactly for that small percentage, to seal the deal and tighten it up.',
+     es:'Ya dijiste tu apertura \u2014 ahora <b>pausa.</b> Cuando estamos nerviosos, queremos decir demasiado; la pausa te deja escuchar, estar presente y dejar que la otra persona responda. Pueden pasar dos cosas. <b>Bingo:</b> se disculpa o lo reconoce \u2014 \u201cAy, perd\u00f3n, no me di cuenta\u201d \u2014 y hay resoluci\u00f3n. Ese es el resultado de la mayor\u00eda: <b>la mayor\u00eda resuelve el conflicto solo con la apertura y la pausa.</b> O: se pone a la defensiva. Tambi\u00e9n est\u00e1 bien \u2014 los siguientes pasos existen justo para ese peque\u00f1o porcentaje, para sellar el acuerdo y reforzarlo.'},
+  q:{en:'What will you do if they own it \u2014 and what will you do if they get defensive or go quiet?',
+     es:'\u00bfQu\u00e9 har\u00e1s si lo reconocen \u2014 y qu\u00e9 har\u00e1s si se ponen a la defensiva o se quedan en silencio?'} },
+{ t:{en:'O & R \u2014 Open the door, then ask', es:'O y R \u2014 Abre la puerta, luego pide'},
+  b:{en:'If they got defensive, you have two tools. <b>Open Possibilities</b> is an invitation \u2014 not necessarily a question \u2014 that paints what resolving could make possible and hands them the choice: \u201cI think it would be really good for us and for our clients if we resolve this \u2014 what do you think?\u201d If they choose no, that is their own choosing; you planted a seed they may come back to. <b>Request Repair</b> is more explicit: \u201cWe can\u2019t be at work like this \u2014 it\u2019s in our values to be collaborative. We\u2019ve got to resolve it.\u201d Know this: once someone is defensive, they often stay defensive \u2014 and you are still doing it right. You are giving chance after chance and <b>staying in integrity.</b>',
+     es:'Si se pusieron a la defensiva, tienes dos herramientas. <b>Abrir Posibilidades</b> es una invitaci\u00f3n \u2014 no necesariamente una pregunta \u2014 que pinta lo que resolver har\u00eda posible y les deja la decisi\u00f3n: \u201cCreo que ser\u00eda muy bueno para nosotros y para nuestros clientes resolver esto \u2014 \u00bft\u00fa qu\u00e9 piensas?\u201d Si eligen que no, es su propia elecci\u00f3n; plantaste una semilla a la que pueden volver. <b>Pedir Reparaci\u00f3n</b> es m\u00e1s expl\u00edcito: \u201cNo podemos estar as\u00ed en el trabajo \u2014 est\u00e1 en nuestros valores ser colaborativos. Tenemos que resolverlo.\u201d Debes saber: cuando alguien est\u00e1 a la defensiva, suele seguir a la defensiva \u2014 y a\u00fan as\u00ed lo est\u00e1s haciendo bien. Est\u00e1s dando oportunidad tras oportunidad y <b>manteni\u00e9ndote en integridad.</b>'},
+  q:{en:'Write your own open-possibilities line \u2014 one sentence that paints what repair could make possible and leaves them the choice.',
+     es:'Escribe tu propia l\u00ednea de abrir posibilidades \u2014 una oraci\u00f3n que pinte lo que la reparaci\u00f3n har\u00eda posible y les deje la decisi\u00f3n.'} },
+{ t:{en:'A \u2014 Act & Align: seal the deal', es:'A \u2014 Actuar y Alinear: sella el acuerdo'},
+  b:{en:'<b>Always close here \u2014 even after a quick apology.</b> Ask for the specific future behavior: \u201cGoing forward, if you\u2019re running late, can you please text me ahead of time?\u201d It may sound obvious, but it is not \u2014 sometimes we have to name it. People are often genuinely unaware (a chronic interrupter is rarely told). Naming it seals the deal so it doesn\u2019t happen again. And if after everything there is no repair: <b>escalate, don\u2019t retreat.</b> Go to your manager from integrity: \u201cI shared their value, what happened, and how it impacted me. I asked for repair, and they didn\u2019t want it. I tried my best \u2014 I need help.\u201d Done well, all five steps can take under 30 seconds.',
+     es:'<b>Cierra siempre aqu\u00ed \u2014 incluso despu\u00e9s de una disculpa r\u00e1pida.</b> Pide la conducta futura espec\u00edfica: \u201cDe ahora en adelante, si vas tarde, \u00bfme puedes mandar un mensaje antes?\u201d Puede sonar obvio, pero no lo es \u2014 a veces hay que nombrarlo. Las personas muchas veces no se dan cuenta (a quien interrumpe casi nunca se lo dicen). Nombrarlo sella el acuerdo para que no vuelva a pasar. Y si despu\u00e9s de todo no hay reparaci\u00f3n: <b>escala, no te retires.</b> Ve con tu gerente desde la integridad: \u201cCompart\u00ed su valor, lo que pas\u00f3 y c\u00f3mo me impact\u00f3. Ped\u00ed reparaci\u00f3n y no la quiso. Hice mi mejor esfuerzo \u2014 necesito ayuda.\u201d Bien hecho, los cinco pasos pueden tomar menos de 30 segundos.'},
+  q:{en:'What is your closing agreement line for a conflict you might actually face?',
+     es:'\u00bfCu\u00e1l es tu frase de acuerdo para cerrar, en un conflicto que podr\u00edas enfrentar de verdad?'} }
+];
+
+let trState = { idx:0, phase:'read', stopped:false, busy:false };
+
+function trainingSystem(lesson) {
+  return OVERRIDE + `
+
+You are Dr. Isa's warm voice in the AHORA training companion (AHORA Framework by Dr. Isa Karabed, DSW). The learner is a PARTICIPANT taking the AHORA conflict resolution training. They just finished the lesson "${lesson.t.en}" and answered this reflection question: "${lesson.q.en}"
+Respond in EXACTLY 2-3 short sentences: warmly affirm something specific and real in their answer, connect it to the lesson's core idea in plain language, and if their answer misses the heart of the lesson (e.g. value missing, bridge missing, assumed impact on someone else, goal of being right instead of repair), offer ONE gentle redirect. Never shame, never lecture, never ask a question back. Plain, warm, keep-it-real voice.
+
+` + PRINCIPLES + `
+
+` + langLine();
+}
+
+function renderTraining() {
+  const u = UI[lang], body = $('training-body');
+  body.innerHTML = '';
+  if (trState.idx >= TRAINING.length) { renderTrainingDone(); return; }
+  const L = TRAINING[trState.idx];
+  const c = document.createElement('div'); c.className = 'fc-counter';
+  c.textContent = u.trCounter + ' ' + (trState.idx+1) + ' / ' + TRAINING.length; body.appendChild(c);
+  const title = document.createElement('div'); title.className = 'ref-title'; title.style.marginBottom = '10px';
+  title.textContent = L.t[lang]; body.appendChild(title);
+  const text = document.createElement('div'); text.className = 'ref-text'; text.style.marginBottom = '18px';
+  text.innerHTML = L.b[lang]; body.appendChild(text);
+  const lbl = document.createElement('div'); lbl.className = 'pr-step-lbl'; lbl.textContent = u.trReflect; body.appendChild(lbl);
+  const q = document.createElement('div'); q.className = 'pr-q'; q.textContent = L.q[lang]; body.appendChild(q);
+  const box = document.createElement('textarea'); box.className = 'pr-box'; box.id = 'tr-box'; box.placeholder = u.trPh; body.appendChild(box);
+  const btns = document.createElement('div'); btns.className = 'pr-btns';
+  const send = document.createElement('button'); send.className = 'gold-btn'; send.id = 'tr-send'; send.textContent = u.trSend;
+  send.onclick = trShare; btns.appendChild(send);
+  const skip = document.createElement('button'); skip.className = 'ghost-btn'; skip.textContent = u.trSkip;
+  skip.onclick = trAdvance; btns.appendChild(skip);
+  body.appendChild(btns);
+  const fb = document.createElement('div'); fb.className = 'pr-fb'; fb.id = 'tr-fb'; body.appendChild(fb);
+  const hs = document.createElement('div'); hs.className = 'pr-hardstop'; hs.id = 'tr-hs'; body.appendChild(hs);
+  const nav = document.createElement('div'); nav.className = 'pr-nav';
+  const nxt = document.createElement('button'); nxt.className = 'gold-btn'; nxt.id = 'tr-next'; nxt.style.marginTop = '0';
+  nxt.style.display = 'none'; nxt.textContent = u.trNext; nxt.onclick = trAdvance; nav.appendChild(nxt);
+  body.appendChild(nav);
+  body.scrollTop = 0;
+}
+
+async function trShare() {
+  if (trState.busy || trState.stopped) return;
+  const txt = $('tr-box').value.trim(); if (!txt) return;
+  if (isBlocked(txt)) {
+    trState.stopped = true;
+    const hs = $('tr-hs'); hs.classList.add('show');
+    hs.innerHTML = '<div class="hardstop-card" style="max-width:100%">' + escapeHTML(HARDSTOP[lang]) + '</div>';
+    $('tr-box').disabled = true; $('tr-send').disabled = true;
+    return;
+  }
+  trState.busy = true; $('tr-send').disabled = true;
+  const fb = $('tr-fb'); fb.classList.add('show'); fb.textContent = '\u2026';
+  try {
+    const raw = await callAPI(trainingSystem(TRAINING[trState.idx]), [{role:'user', content:txt}]);
+    fb.textContent = raw.trim();
+  } catch(e) { fb.textContent = UI[lang].err; }
+  trState.busy = false;
+  $('tr-next').style.display = 'block';
+}
+
+function trAdvance() {
+  if (trState.stopped) return;
+  trState.idx++; trState.busy = false;
+  renderTraining();
+}
+
+function renderTrainingDone() {
+  const u = UI[lang], body = $('training-body');
+  body.innerHTML = '';
+  const card = document.createElement('div'); card.className = 'script-card'; card.style.maxWidth = '100%';
+  card.innerHTML = '<div class="script-lbl">' + u.trDoneBig + '</div>'
+    + '<div class="ref-text">' + u.trDone + '</div>';
+  body.appendChild(card);
+  const nav = document.createElement('div'); nav.className = 'pr-nav'; nav.style.flexDirection = 'column'; nav.style.gap = '8px';
+  const go = document.createElement('button'); go.className = 'gold-btn'; go.style.marginTop = '0';
+  go.textContent = u.trGoPractice; go.onclick = () => openMode('practice'); nav.appendChild(go);
+  const again = document.createElement('button'); again.className = 'ghost-btn';
+  again.textContent = u.trRestart; again.onclick = () => { trState = { idx:0, phase:'read', stopped:false, busy:false }; renderTraining(); };
+  nav.appendChild(again);
+  body.appendChild(nav);
 }
 
 /* =============== CURRICULUM REFRESHER =============== */
