@@ -1135,16 +1135,34 @@ Give feedback on their answer in 2-3 sentences, in plain warm language: name spe
 const PROXY = '/api/chat';
 const DIRECT = 'https://api.anthropic.com/v1/messages';
 async function callAPI(system, messages) {
-  const body = JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system, messages });
-  let res;
-  try {
-    res = await fetch(PROXY, { method:'POST', headers:{'Content-Type':'application/json'}, body });
-    if (!res.ok) throw new Error('proxy ' + res.status);
-  } catch(e) {
-    res = await fetch(DIRECT, { method:'POST', headers:{'Content-Type':'application/json'}, body });
+  /* Prompt caching: the big system prompt is marked cacheable, so repeat calls
+     within 5 minutes count almost nothing against the input-token rate limit
+     and cost ~90% less. Auto-retry: rate-limit or overload errors (429/529)
+     get up to 3 quiet retries with backoff before the user ever sees an error. */
+  const body = JSON.stringify({
+    model:'claude-sonnet-4-20250514',
+    max_tokens:1000,
+    system:[{ type:'text', text:system, cache_control:{ type:'ephemeral' } }],
+    messages
+  });
+  const opts = { method:'POST', headers:{'Content-Type':'application/json'}, body };
+  const parse = async (res) => {
+    const data = await res.json();
+    return (data.content || []).filter(b => b.type === 'text' || b.text).map(b => b.text || '').join('');
+  };
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      const res = await fetch(PROXY, opts);
+      if (res.status === 429 || res.status === 529) throw new Error('busy ' + res.status);
+      if (!res.ok) throw new Error('proxy ' + res.status);
+      return await parse(res);
+    } catch(e) {
+      if (attempt < 3) await new Promise(r => setTimeout(r, 1500 * Math.pow(2, attempt)));
+    }
   }
-  const data = await res.json();
-  return (data.content || []).filter(b => b.type === 'text' || b.text).map(b => b.text || '').join('');
+  /* Last resort (works when running inside Claude artifacts) */
+  const res = await fetch(DIRECT, opts);
+  return await parse(res);
 }
 
 /* =============== NAV / LANG =============== */
