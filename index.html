@@ -1140,7 +1140,7 @@ async function callAPI(system, messages) {
      and cost ~90% less. Auto-retry: rate-limit or overload errors (429/529)
      get up to 3 quiet retries with backoff before the user ever sees an error. */
   const body = JSON.stringify({
-    model:'claude-sonnet-4-20250514',
+    model:'claude-sonnet-4-6',
     max_tokens:1000,
     system:[{ type:'text', text:system, cache_control:{ type:'ephemeral' } }],
     messages
